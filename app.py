@@ -151,9 +151,9 @@ def login():
         studentData = cursor.fetchone()
         cursor.close()
 
- #       if studentData:
+        if studentData:
             # If the login credentials match a student, redirect to the student page
-#            return redirect(url_for('profile'))
+           return redirect(url_for('profile'))
 
         # If not a student, check admin table
         cursor = db_conn.cursor()
