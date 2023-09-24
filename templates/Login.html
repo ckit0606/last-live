@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/css/Login.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8a90358d69.js" crossorigin="anonymous"></script>
+    <title>Login</title>
+</head>
+<body>
+    <form method="POST" action="/Login">
+    <div class="box">
+        <div class="containerLogin">
+            <div class="top">
+                <header>Login</header>
+            </div>
+
+            <div class="input-field">
+                <input ID="loginUserName" name="LoginEmail" type="text" placeholder="Username" class="green-border-input">
+                <i class="fas fa-user"></i>
+            </div>
+            
+            <div class="input-field">
+                <input ID="loginPassword" name="LoginPassword" type="password" placeholder="Password" class="green-border-input">
+                <i class="fas fa-lock"></i>
+            </div>
+            
+
+            <div class="input-field">
+                <button ID="btnLogin" type="submit">Login</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

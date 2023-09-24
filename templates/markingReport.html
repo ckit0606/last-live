@@ -1,0 +1,53 @@
+{% extends "teacherlayout.html" %}
+{% block title %}
+MarkingReport
+{% endblock %}
+{% block content %}
+<div class="container-xxl py-5">
+    <div class="container">
+        <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Report List</h1>
+        <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane fade show p-0 active">
+                    {% for student in students %}
+                    <div class="job-item p-4 mb-4">
+                        <div class="row g-4">
+                            <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                <img class="flex-shrink-0 img-fluid border rounded" src="img/zhunhui.jpg" alt="" style="width: 80px; height: 80px;">
+                                <div class="text-start ps-4">
+                                    <h5 class="mb-3">{{ student[1] }}</h5>
+                                    <span class="text-truncate me-3"><i class="fa fa-book text-primary me-2"></i>{{ student[2] }}</span>
+                                    <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>{{ student[4] }}</span>
+                                    <span class="text-truncate me-0"><i class="far fa-calendar-alt text-primary me-2"></i>{{ student[3] }}</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                {% if student[5] is not none %}
+                                    <p>Mark: {{ student[5] }}</p>
+                                    <p>Submission Date: {{ student[6] }}</p>
+                                    <a class="btn btn-light btn-square me-3" href=""><i class="far fa-file text-primary"></i></a>
+                                {% else %}
+                                    <form id="markForm_{{ student[0] }}" method="POST" action="/submit_mark">
+                                        <!-- Add a hidden input field for student_id -->
+                                        <input type="hidden" name="student_id" value="{{ student[0] }}" />
+                                        <div class="d-flex mb-3">
+                                            <a class="btn btn-light btn-square me-3" href=""><i class="far fa-file text-primary"></i></a>
+                                            <input type="number" id="markInput_{{ student[0] }}" name="markInput" placeholder="Mark" min="1" max="100" required />
+                                            <button class="btn btn-light btn-square me-3" type="submit"><i class="fa fa-check-square" style="font-size:48px;color:green"></i></button>
+                                        </div>
+                                    </form>
+                                    <small class="text-truncate"><i class="fas fa-calendar-check text-primary me-2"></i>Submit Date: <span id="submitDate_{{ student[0] }}"></span></small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    
+                    <a class="btn btn-primary py-3 px-5" href="">Display More Pending Resumes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

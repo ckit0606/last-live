@@ -1,0 +1,89 @@
+{% extends "companyLayout.html" %}
+{% block title %}
+appliedStudent
+{% endblock %}
+{% block content %}
+<!-- Applied Student Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Applied Student List</h1>
+        <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
+            <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+                <li class="nav-item">
+                    <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" id="filter-pending" data-bs-toggle="pill" href="#" onclick="filter('Pending')">
+                        <h6 class="mt-n1 mb-0">Pending</h6>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" id="filter-accepted" href="#" onclick="filter('Accepted')">
+                        <h6 class="mt-n1 mb-0">Accepted</h6>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" id="filter-rejected" href="#" onclick="filter('Rejected')">
+                        <h6 class="mt-n1 mb-0">Rejected</h6>
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Pending Start-->
+            <div class="tab-content">
+                {% for student in appliedData %}   
+                <div id="tab-1" class="tab-pane fade show p-0 active">
+                    <div id="student-list">
+                        <div class="job-item p-4 mb-4">
+                            <div class="row g-4">
+                                <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                    <img class="flex-shrink-0 img-fluid border rounded" src="img/zhunhui.jpg" alt="" style="width: 80px; height: 80px;">
+                                    <div class="text-start ps-4">
+                                        <h5 class="mb-3">{{ student[1] }}</h5>
+                                        <span class="text-truncate me-3"><i class="fa fa-book text-primary me-2"></i>{{ student[2] }}</span>
+                                        <span class="text-truncate me-0"><strong>Job Apply : </strong>{{ student[3] }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                    <div class="d-flex mb-3">
+                                        {% if student[4] == 'Pending' %}
+                                        <a class="btn btn-light btn-square me-3" href=""><i class="far fa-file text-primary"></i></a>
+                                        <form method="POST" action="{{ url_for('appliedStudent', type='Pending') }}">
+                                            <input type="hidden" name="student_id" value="{{ student[0] }}">
+                                            <input type="hidden" name="action" value="Accepted">  <!-- Change to 'Rejected' as needed -->
+                                            <button type="submit" class="btn btn-light btn-square me-3">
+                                                <i class="fa fa-check-square" style="font-size:48px;color:green"></i>
+                                            </button>
+                                        </form>
+                                        <!-- Add a similar form for Reject -->
+                                        <form method="POST" action="{{ url_for('appliedStudent', type='Pending') }}">
+                                            <input type="hidden" name="student_id" value="{{ student[0] }}">
+                                            <input type="hidden" name="action" value="Rejected">
+                                            <button type="submit" class="btn btn-light btn-square me-3">
+                                                <i class="fa fa-times-circle" style="font-size:48px;color:red"></i>
+                                            </button>
+                                        </form>
+                                    {% else %}
+                                        <a class="btn btn-primary" href="">View Student's Resume</a>
+                                    {% endif %}
+                                    </div>
+
+                                </div>
+                            </div> 
+                        </div>                        
+                     </div>
+                </div>
+                {% endfor %}
+            </div>   
+        </div>
+    </div>
+</div>
+<!--Applied Student End -->
+
+<script>
+    function filter(status) {
+        // Construct the URL with the 'type' parameter
+        var url = `{{ url_for('appliedStudent', type='') }}${status}`;
+        window.location.href = url;
+    }
+</script>
+
+
+{% endblock %}
