@@ -132,11 +132,8 @@ if __name__ == '__main__':
 
     #---------------------------------------------CKIT---------------------------------------------------------
 
-@app.route("/")
-def appliedStudentPage():
-    return render_template("Login.html")
 
-@app.route("/Login/")
+@app.route("/")
 @app.route("/Login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
